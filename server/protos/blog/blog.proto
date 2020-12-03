@@ -1,0 +1,51 @@
+syntax = "proto3";
+package blog;
+option go_package = "github.com/vaibhav/grpc_crud/server/protos/blog/blog.proto;blog_proto";
+
+service BlogService {
+    rpc CreateBlog (CreateBlogReq) returns (CreateBlogRes);
+    rpc ReadBlog (ReadBlogReq) returns (ReadBlogRes); 
+    rpc UpdateBlog (UpdateBlogReq) returns (UpdateBlogRes);
+    rpc DeleteBlog (DeleteBlogReq) returns (DeleteBlogRes);
+    rpc ListBlogs (ListBlogsReq) returns (stream ListBlogsRes);
+}
+
+message Blog {
+    string id = 1;
+    string author_id = 2;
+    string title = 3;
+    string content = 4;
+}
+
+message CreateBlogReq {
+    Blog blog = 1;  // with empty blog id while input
+}
+message CreateBlogRes {
+    Blog blog = 1;  // auto generated id
+}
+
+message ReadBlogReq {
+    string id = 1;
+}
+message ReadBlogRes {
+    Blog blog = 1;
+}
+
+message UpdateBlogReq {
+    Blog blog = 1;
+}
+message UpdateBlogRes {
+    Blog blog = 1;
+}
+
+message DeleteBlogReq {
+    string id = 1;
+}
+message DeleteBlogRes {
+    bool success = 1;
+}
+
+message ListBlogsReq {}
+message ListBlogsRes {
+    Blog blog = 1;
+}
